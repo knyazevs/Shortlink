@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Sergey Knyazev">
+    <title>Shortlink generator</title>
+
+
+    <link href="./css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="./css/main.css" rel="stylesheet">
+</head>
+<body class="text-center">
+
+<main class="form-main w-100 m-auto">
+    <form action="/" method="post">
+        <a href="/">
+            <img src="/img/logo.svg" alt="" width="200" height="200" style="filter: invert(76%) sepia(29%) saturate(6422%) hue-rotate(193deg) brightness(103%) contrast(101%);">
+        </a>
+        <h1 class="h3 mb-3 fw-normal">Shortlink</h1>
+        {{ form.hidden_tag() }}
+        <div class="form-floating mb-3">
+            {{ form.url(class_='form-control', id='floatingInput', type='url') }}
+            {{ form.url.label }}
+        </div>
+        {{ form.submit(class='w-100 btn btn-lg btn-primary') }}
+        <p class="mt-5 mb-3 text-muted">© Shortlink 2022</p>
+    </form>
+</main>
+</body>
+</html>

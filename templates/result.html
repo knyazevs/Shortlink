@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Sergey Knyazev">
+    <title>Shortlink generator</title>
+
+
+    <link href="./css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="./css/main.css" rel="stylesheet">
+</head>
+<body class="text-center">
+
+<main class="form-main w-100 m-auto">
+    <form action="http://127.0.0.1:5000/{{ short_link }}" method="get">
+        <a href="/">
+            <img src="/img/logo.svg" alt="" width="200" height="200"
+                 style="filter: invert(76%) sepia(29%) saturate(6422%) hue-rotate(193deg) brightness(103%) contrast(101%);">
+        </a>
+        <h1 class="h3 mb-3 fw-normal">Shortlink</h1>
+
+        <div class="form-floating input-group mb-3">
+            <input type="url" class="form-control" id="url" readonly="readonly"
+                   value="http://127.0.0.1:5000/{{ short_link }}">
+            <label for="url">Короткая ссылка</label>
+            <button class="btn btn-outline-secondary" type="button" id="copyBtn">Копировать</button>
+        </div>
+        <p class="mt-5 mb-3 text-muted">© Shortlink 2022</p>
+    </form>
+    <script>
+        document.getElementById('copyBtn').onclick = function() {
+            Copy();
+            this.innerText = 'Готово!';
+        }
+        function Copy() {
+          var Url = document.getElementById("url");
+          copyToClipboard(Url.value)
+          Url.focus();
+          Url.select();
+        }
+
+        function copyToClipboard(textToCopy) {
+            // navigator clipboard api needs a secure context (https)
+            if (navigator.clipboard && window.isSecureContext) {
+                // navigator clipboard api method'
+                return navigator.clipboard.writeText(textToCopy);
+            } else {
+                // text area method
+                let textArea = document.createElement("textarea");
+                textArea.value = textToCopy;
+                // make the textarea out of viewport
+                textArea.style.position = "fixed";
+                textArea.style.left = "-999999px";
+                textArea.style.top = "-999999px";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                return new Promise((res, rej) => {
+                    // here the magic happens
+                    document.execCommand('copy') ? res() : rej();
+                    textArea.remove();
+                });
+            }
+        }
+
+    </script>
+</main>
+</body>
+</html>
