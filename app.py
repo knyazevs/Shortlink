@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask
 
 from db import mydatabase
@@ -20,4 +22,10 @@ def close_connection(g):
 app.register_blueprint(shortlink_page)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    host = os.environ['HOST']
+    if host is None:
+        host = "127.0.0.1"
+    port = int(os.environ['PORT'])
+    if port is None:
+        port = 80
+    app.run(host=host, port=port, debug=False)

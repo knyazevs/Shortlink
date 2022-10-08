@@ -1,5 +1,5 @@
 from peewee import SqliteDatabase
 
-DATABASE = 'ShortURL.db'
-mydatabase = SqliteDatabase('ShortURL.db')
+DATABASE = './data/ShortURL.db'
+mydatabase = SqliteDatabase(DATABASE)
 

@@ -1,0 +1,14 @@
+version: "3"
+services:
+  shortlink:
+    container_name: shortlink
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./data:/data
+    ports:
+      - "80:80"
+    environment:
+      - PORT=80
+      - HOST=0.0.0.0
