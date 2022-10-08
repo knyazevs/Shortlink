@@ -1,10 +1,12 @@
-version: "3"
+version: "3.8"
 services:
-  shortlink:
-    container_name: shortlink
+  shortlink-app:
+    container_name: "shortlink-app"
     build:
       context: .
       dockerfile: Dockerfile
+    depends_on:
+      - shortlink-postgres
     volumes:
       - ./data:/data
     ports:
@@ -12,3 +14,20 @@ services:
     environment:
       - PORT=80
       - HOST=0.0.0.0
+      - PG_USER=postgres
+      - PG_PASSWORD=password
+      - PG_HOST=shortlink-postgres
+      - PG_DBNAME=postgres
+      - PG_PORT=5432
+
+  shortlink-postgres:
+    container_name: "shortlink-postgres"
+    image: "postgres:14"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - PGDATA=/data/postgres
+    volumes:
+      - ./data:/data/postgres
+    ports:
+      - "5432:5432"

@@ -22,10 +22,10 @@ def close_connection(g):
 app.register_blueprint(shortlink_page)
 
 if __name__ == '__main__':
-    host = os.environ['HOST']
+    host = os.getenv('HOST')
     if host is None:
         host = "127.0.0.1"
-    port = int(os.environ['PORT'])
+    port = os.getenv('PORT')
     if port is None:
         port = 80
-    app.run(host=host, port=port, debug=False)
+    app.run(host=host, port=int(port), debug=False)
